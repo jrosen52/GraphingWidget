@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private LinearLayout canvasLayout = null;
 
     AppSurface customSurfaceView = null;
+
+    private TextView coors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         // Add the custom surfaceview object to the layout.
         canvasLayout.addView(customSurfaceView);
 
+        coors = (TextView) findViewById(R.id.coor);
+
     }
 
     /* Initialise ui controls. */
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             float y = motionEvent.getY();
 
+            String coorNums = (int)x + ", " + (int)y;
+            coors.setText(coorNums);
             customSurfaceView.setCircleX(x);
 
             customSurfaceView.setCircleY(y);
