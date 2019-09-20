@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
@@ -53,15 +55,13 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
 
         Paint surfaceBackground = new Paint();
         // Set the surfaceview background color.
-        surfaceBackground.setColor(Color.BLACK);
+        surfaceBackground.setColor(Color.WHITE);
         // Draw the surfaceview background color.
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
 
         // Draw the circle.
         paint.setColor(Color.RED);
         canvas.drawCircle(circleX, circleY, 100, paint);
-
-        canvas.drawCircle(50, 50, 200, paint);
 
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
@@ -82,6 +82,73 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawRect(circleX, circleY, circleX + 200, circleY + 200, paint);
 
         surfaceHolder.unlockCanvasAndPost(canvas);
+    }
+
+    public void drawTri()
+    {
+        Canvas canvas = surfaceHolder.lockCanvas();
+        Paint paint = new Paint();
+
+        paint.setColor(android.graphics.Color.BLACK);
+        canvas.drawPaint(paint);
+
+        paint.setStrokeWidth(4);
+        paint.setColor(android.graphics.Color.RED);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setAntiAlias(true);
+
+        Point a = new Point(0, 0);
+        Point b = new Point(0, 100);
+        Point c = new Point(87, 50);
+
+        Path path = new Path();
+        path.setFillType(Path.FillType.EVEN_ODD);
+        path.lineTo(b.x, b.y);
+        path.lineTo(c.x, c.y);
+        path.lineTo(a.x, a.y);
+        path.close();
+
+        canvas.drawPath(path, paint);
+    }
+
+    public void drawHeart()
+    {
+        Canvas canvas = surfaceHolder.lockCanvas();
+
+        Path path = new Path();
+        canvas.drawColor(Color.WHITE);
+        paint.setShader(null);
+
+        float width = 100;
+        float height = 200;
+
+        // Starting point
+        path.moveTo(width / 2, height / 5);
+
+        // Upper left path
+        path.cubicTo(5 * width / 14, 0,
+                0, height / 15,
+                width / 28, 2 * height / 5);
+
+        // Lower left path
+        path.cubicTo(width / 14, 2 * height / 3,
+                3 * width / 7, 5 * height / 6,
+                width / 2, height);
+
+        // Lower right path
+        path.cubicTo(4 * width / 7, 5 * height / 6,
+                13 * width / 14, 2 * height / 3,
+                27 * width / 28, 2 * height / 5);
+
+        // Upper right path
+        path.cubicTo(width, height / 15,
+                9 * width / 14, 0,
+                width / 2, height / 5);
+
+        paint.setColor(Color.RED);
+        paint.setStyle(Style.FILL);
+        canvas.drawPath(path, paint);
+
     }
 
     public float getCircleX() {
