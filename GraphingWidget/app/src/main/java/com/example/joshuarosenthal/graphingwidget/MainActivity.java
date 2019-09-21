@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
 
@@ -80,10 +81,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             // Create and set a red paint to custom surfaceview.
             Paint paint = new Paint();
-            paint.setColor(Color.RED);
+            paint.setColor(Color.GREEN);
             customSurfaceView.setPaint(paint);
 
-            customSurfaceView.drawBall();
+            customSurfaceView.drawHeart();
+            //Toast.makeText(MainActivity.this, " X: " + x +" Y: "+y, Toast.LENGTH_SHORT).show();
 
 
             // Tell android os the onTouch event has been processed.

@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
 {
@@ -67,6 +68,45 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
+    public void drawTri()
+    {
+        surfaceHolder = getHolder();
+
+        Canvas canvas = surfaceHolder.lockCanvas();
+        Paint paint = new Paint();
+
+        Paint surfaceBackground = new Paint();
+        // Set the surfaceview background color.
+        surfaceBackground.setColor(Color.BLUE);
+        // Draw the surfaceview background color.
+        canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
+
+        paint.setColor(android.graphics.Color.BLACK);
+        canvas.drawPaint(paint);
+
+        paint.setStrokeWidth(4);
+        paint.setColor(android.graphics.Color.RED);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setAntiAlias(true);
+
+        Point a = new Point((int)circleX, (int)circleY);
+        Point b = new Point((int)circleX, (int)circleY + 100);
+        Point c = new Point((int)circleX+200, (int)circleY+50);
+        //System.out.print(circleX);
+        //System.out.print(circleY);
+        //Toast.makeText(AppSurface.this, "Two Select Position: ", Toast.LENGTH_SHORT).show();
+
+        Path path = new Path();
+        path.setFillType(Path.FillType.EVEN_ODD);
+        path.lineTo(b.x, b.y);
+        path.lineTo(c.x, c.y);
+        path.lineTo(a.x, a.y);
+        path.close();
+
+        canvas.drawPath(path, paint);
+        surfaceHolder.unlockCanvasAndPost(canvas);
+    }
+
     /* This method will be invoked to draw a circle in canvas. */
     public void drawRect()
     {
@@ -84,39 +124,22 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
-    public void drawTri()
-    {
-        Canvas canvas = surfaceHolder.lockCanvas();
-        Paint paint = new Paint();
-
-        paint.setColor(android.graphics.Color.BLACK);
-        canvas.drawPaint(paint);
-
-        paint.setStrokeWidth(4);
-        paint.setColor(android.graphics.Color.RED);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setAntiAlias(true);
-
-        Point a = new Point(0, 0);
-        Point b = new Point(0, 100);
-        Point c = new Point(87, 50);
-
-        Path path = new Path();
-        path.setFillType(Path.FillType.EVEN_ODD);
-        path.lineTo(b.x, b.y);
-        path.lineTo(c.x, c.y);
-        path.lineTo(a.x, a.y);
-        path.close();
-
-        canvas.drawPath(path, paint);
-    }
 
     public void drawHeart()
     {
+        surfaceHolder = getHolder();
+
         Canvas canvas = surfaceHolder.lockCanvas();
+        Paint paint = new Paint();
+
+        Paint surfaceBackground = new Paint();
+        // Set the surfaceview background color.
+        surfaceBackground.setColor(Color.BLUE);
+        // Draw the surfaceview background color.
+        canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
 
         Path path = new Path();
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.RED);
         paint.setShader(null);
 
         float width = 100;
