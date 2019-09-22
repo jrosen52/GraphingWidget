@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.widget.Toast;
 import android.os.Bundle;
 import java.util.Random;
+import java.lang.*;
 import android.app.Activity;
 
 public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
@@ -71,9 +72,27 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         //Random r1 = new Random();
         //int color = r1.nextInt((255 - 0) + 1) + 0;
         int rValue, bValue;
-        if(circleX < xCoor+30 && circleX > xCoor-30 && circleY < yCoor+30 && circleY > yCoor-30)
+        if(circleX < xCoor+5 && circleX > xCoor-5 && circleY < yCoor+5 && circleY > yCoor-5)
         {
-            paint.setARGB(255,255,0,0);
+            paint.setARGB(255,0,255,0);
+        }
+        else if(circleX < xCoor+255 && circleX > xCoor-255 && circleY < yCoor+255 && circleY > yCoor-255)
+        {
+            int compX = (int)xCoor-(int)circleX;
+            if(compX < 0)
+            {
+                compX = compX*-1;
+            }
+            int compY = (int)yCoor-(int)circleY;
+            if(compY < 0)
+            {
+                compY = compY*-1;
+            }
+            int compXY = Math.max(compX, compY);
+            rValue = 255-compXY;
+            bValue = 255-rValue;
+
+            paint.setARGB(255,rValue,0,bValue);
         }
         else
         {
