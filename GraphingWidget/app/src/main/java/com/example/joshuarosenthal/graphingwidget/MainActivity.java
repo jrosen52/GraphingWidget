@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     AppSurface customSurfaceView = null;
 
     private TextView coors;
+
+    String[] shapes ={"Circle","Square"};
+    int images[] = {R.drawable.circle, R.drawable.square};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         canvasLayout.addView(customSurfaceView);
 
         coors = (TextView) findViewById(R.id.coor);
+
+        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "You Select Position: "+position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        SpinnerAdapter customAdapter1 = new SpinnerAdapter(getApplicationContext(),images,shapes);
+        spin.setAdapter(customAdapter1);
 
     }
 
@@ -84,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             paint.setColor(Color.GREEN);
             customSurfaceView.setPaint(paint);
 
-            customSurfaceView.drawHeart();
+            customSurfaceView.drawBall();
             //Toast.makeText(MainActivity.this, " X: " + x +" Y: "+y, Toast.LENGTH_SHORT).show();
 
 

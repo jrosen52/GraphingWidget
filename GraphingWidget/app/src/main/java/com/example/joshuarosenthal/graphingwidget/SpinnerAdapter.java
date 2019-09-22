@@ -8,17 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class SpinnerClass extends BaseAdapter {
+class SpinnerAdapter extends BaseAdapter {
 
     Context context;
     int images[];
-    String[] currency;
+    String[] shapes;
     LayoutInflater inflter;
 
-    public SpinnerClass (Context applicationContext, int[] flags, String[] currency) {
+    public SpinnerAdapter (Context applicationContext, int[] flags, String[] shapes) {
         this.context = applicationContext;
         this.images = flags;
-        this.currency = currency;
+        this.shapes = shapes;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
@@ -43,7 +43,7 @@ class SpinnerClass extends BaseAdapter {
         ImageView icon = (ImageView) view.findViewById(R.id.imageView);
         TextView names = (TextView) view.findViewById(R.id.textView);
         icon.setImageResource(images[i]);
-        names.setText(currency[i]);
+        names.setText(shapes[i]);
         return view;
     }
 }
