@@ -11,6 +11,9 @@ import android.graphics.Point;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
+import android.os.Bundle;
+import java.util.Random;
+import android.app.Activity;
 
 public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
 {
@@ -18,6 +21,9 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
     private Paint paint = null;
     private float circleX = 0;
     private float circleY = 0;
+    Random r = new Random();
+    public int xCoor = r.nextInt((1000 - 30) + 1) + 30;
+    public int yCoor = r.nextInt((1500 - 30) + 1) + 30;
 
     public AppSurface(Context context) {
         super(context);
@@ -49,6 +55,7 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
     /* This method will be invoked to draw a circle in canvas. */
     public void drawBall()
     {
+        //Toast.makeText(getApplicationContext(), "X: " +xCoor + "Y: " + yCoor, Toast.LENGTH_SHORT).show();
         surfaceHolder = getHolder();
 
         // Get and lock canvas object from surfaceHolder.
@@ -61,8 +68,18 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
 
         // Draw the circle.
-        paint.setColor(Color.RED);
-        canvas.drawCircle(circleX, circleY, 100, paint);
+        //Random r1 = new Random();
+        //int color = r1.nextInt((255 - 0) + 1) + 0;
+        int rValue, bValue;
+        if(circleX < xCoor+30 && circleX > xCoor-30 && circleY < yCoor+30 && circleY > yCoor-30)
+        {
+            paint.setARGB(255,255,0,0);
+        }
+        else
+        {
+            paint.setARGB(255,0,0,255);
+        }
+        canvas.drawCircle(circleX, circleY, 60, paint);
 
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
