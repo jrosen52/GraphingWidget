@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     private TextView coors;
 
-    String[] shapes ={"Circle","Square"};
-    int images[] = {R.drawable.circle, R.drawable.square};
+    String[] shapes ={"Circle","Square", "Triangle"};
+    int images[] = {R.drawable.circle, R.drawable.square, R.drawable.triangle};
+    String curShape = "Circle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "You Select Position: "+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "You Select Position: "+position, Toast.LENGTH_SHORT).show();
+                if(position == 0)
+                {
+                    curShape = "Circle";
+                }
+                else if(position == 1)
+                {
+                    curShape = "Square";
+                }
+                else if(position == 2)
+                {
+                    curShape = "Triangle";
+                }
             }
 
             @Override
@@ -105,8 +118,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             paint.setColor(Color.GREEN);
             customSurfaceView.setPaint(paint);
 
-            customSurfaceView.drawBall();
-            //Toast.makeText(MainActivity.this, " X: " + x +" Y: "+y, Toast.LENGTH_SHORT).show();
+            if(curShape == "Circle")
+            {
+                customSurfaceView.drawBall();
+            }
+            else if((curShape == "Square"))
+            {
+                customSurfaceView.drawRect();
+            }
+            else
+            {
+                customSurfaceView.drawTri();
+            }
 
 
             // Tell android os the onTouch event has been processed.

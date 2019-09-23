@@ -98,7 +98,7 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         {
             paint.setARGB(255,0,0,255);
         }
-        canvas.drawCircle(circleX, circleY, 60, paint);
+        canvas.drawCircle(circleX, circleY, 80, paint);
 
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
@@ -108,20 +108,47 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
     {
         surfaceHolder = getHolder();
 
+        // Get and lock canvas object from surfaceHolder.
         Canvas canvas = surfaceHolder.lockCanvas();
-        Paint paint = new Paint();
 
         Paint surfaceBackground = new Paint();
         // Set the surfaceview background color.
-        surfaceBackground.setColor(Color.BLUE);
+        surfaceBackground.setColor(Color.WHITE);
         // Draw the surfaceview background color.
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
+        int rValue, bValue;
+        if(circleX < xCoor+5 && circleX > xCoor-5 && circleY < yCoor+5 && circleY > yCoor-5)
+        {
+            paint.setARGB(255,0,255,0);
+        }
+        else if(circleX < xCoor+255 && circleX > xCoor-255 && circleY < yCoor+255 && circleY > yCoor-255)
+        {
+            int compX = (int)xCoor-(int)circleX;
+            if(compX < 0)
+            {
+                compX = compX*-1;
+            }
+            int compY = (int)yCoor-(int)circleY;
+            if(compY < 0)
+            {
+                compY = compY*-1;
+            }
+            int compXY = Math.max(compX, compY);
+            rValue = 255-compXY;
+            bValue = 255-rValue;
 
-        paint.setColor(android.graphics.Color.BLACK);
+            paint.setARGB(255,rValue,0,bValue);
+        }
+        else
+        {
+            paint.setARGB(255,0,0,255);
+        }
+
+        //paint.setColor(android.graphics.Color.BLACK);
         canvas.drawPaint(paint);
 
         paint.setStrokeWidth(4);
-        paint.setColor(android.graphics.Color.RED);
+        //paint.setColor(android.graphics.Color.RED);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setAntiAlias(true);
 
@@ -150,17 +177,46 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
 
         Paint surfaceBackground = new Paint();
         // Set the surfaceview background color.
-        surfaceBackground.setColor(Color.BLUE);
+        surfaceBackground.setColor(Color.WHITE);
         // Draw the surfaceview background color.
+
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
 
+        int rValue, bValue;
+        if(circleX < xCoor+5 && circleX > xCoor-5 && circleY < yCoor+5 && circleY > yCoor-5)
+        {
+            paint.setARGB(255,0,255,0);
+        }
+        else if(circleX < xCoor+255 && circleX > xCoor-255 && circleY < yCoor+255 && circleY > yCoor-255)
+        {
+            int compX = (int)xCoor-(int)circleX;
+            if(compX < 0)
+            {
+                compX = compX*-1;
+            }
+            int compY = (int)yCoor-(int)circleY;
+            if(compY < 0)
+            {
+                compY = compY*-1;
+            }
+            int compXY = Math.max(compX, compY);
+            rValue = 255-compXY;
+            bValue = 255-rValue;
+
+            paint.setARGB(255,rValue,0,bValue);
+        }
+        else
+        {
+            paint.setARGB(255,0,0,255);
+        }
+
         // Draw the rectangle.
-        canvas.drawRect(circleX, circleY, circleX + 200, circleY + 200, paint);
+        canvas.drawRect(circleX, circleY, circleX + 100, circleY + 100, paint);
 
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
-
+/**
     public void drawHeart()
     {
         surfaceHolder = getHolder();
@@ -209,7 +265,7 @@ public class AppSurface extends SurfaceView implements SurfaceHolder.Callback
         canvas.drawPath(path, paint);
 
     }
-
+**/
     public float getCircleX() {
         return circleX;
     }
